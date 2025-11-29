@@ -4,7 +4,7 @@ __author__ = "Archist"
 from .URLs import URL
 from .ApiKey import ApiKey
 
-from ApiCaller import ApiResponse, Articles
+from .ApiCaller import ApiResponse, Articles
 
 __all__ = ["APIHandler", "ApiKey", "ApiCaller"]
 
