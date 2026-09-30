@@ -1,13 +1,10 @@
-from enum import Enum
 
-from .HeaderGroups import HeaderGroup
+from .HeaderGroups import HeaderGroup as __HeaderGroup
+from ParamConstraintsConsts import *
 
 
-class HeaderGroups(Enum):
-    top=HeaderGroup("top-headlines", "apiKey", "country", "category", "sources", "query", "size", "page", "lang")
-    everything=HeaderGroup("everything", "apiKey", "query", "searchIn", "sources", "domains", "domains", "excludeDomains",
-                           "dateFrom", "dateTo", "sortBy", "size", "page", "lang")
-
-    @classmethod
-    def retr_header_group(cls, key):
-        return cls[key].value
+TOP = __HeaderGroup\
+    ("top-headlines", API_KEY, COUNTRY, CATEGORY, SOURCES, QUERY, SIZE, PAGE, LANG)
+EVERYTHING = __HeaderGroup\
+    ("everything", API_KEY, QUERY, SEARCH_IN, SOURCES, DOMAINS, EXCLUDE_DOMAINS,
+                        DATE_FROM, DATE_TO, SORT_BY, SIZE, PAGE, LANG)

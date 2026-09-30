@@ -1,27 +1,18 @@
-from .Params import Param
+from .Params import Param as __Param
 
 from re import findall
-from enum import Enum
 
-__all__=["Params"]
-
-
-class Params(Enum):
-    country = Param("country",type=str, length=2)
-    sources = Param("sources", type=str, length=2)
-    category = Param("category", type=str)
-    query = Param("q", length=500)
-    size = Param("pageSize", type=int)
-    page = Param("page", type=int, int_limit=(0,100))
-    apiKey = Param("apiKey", type=str)
-    sortBy = Param("sortBy", "relevancy", "popularity", "publishedAt", type=list)
-    searchIn = Param("search_in", "title", "description", "content", type=list)
-    excludeDomains = Param("excludeDomains", type=list)
-    domains = Param("domains", type=list)
-    dateFrom = Param("from")
-    dateTo = Param("to")
-    lang = Param("language", *findall('..',"ardeenesfrheitnlnoptrusvudzh"), type=str, length=2)
-
-    @classmethod
-    def retrieve_param(cls, item) -> Param:
-        return cls[item].value
+COUNTRY = __Param("country",type=str, length=2)
+SOURCES = __Param("sources", type=str, length=2)
+CATEGORY = __Param("category", type=str)
+QUERY = __Param("q", length=500)
+SIZE = __Param("pageSize", type=int)
+PAGE = __Param("page", type=int, int_limit=(0,100))
+API_KEY = __Param("apiKey", type=str)
+SORT_BY = __Param("sortBy", "relevancy", "popularity", "publishedAt", type=list)
+SEARCH_IN = __Param("search_in", "title", "description", "content", type=list)
+EXCLUDE_DOMAINS = __Param("excludeDomains", type=list)
+DOMAINS = __Param("domains", type=list)
+DATE_FROM = __Param("from")
+DATE_TO = __Param("to")
+LANG = __Param("language", *findall('..',"ardeenesfrheitnlnoptrusvudzh"), type=str, length=2)

@@ -1,6 +1,7 @@
-from .RegisteredConstraints import check_constraints
+from typing import TYPE_CHECKING
 
-__all__=["ParamConstraint"]
+if TYPE_CHECKING:
+    from 
 
 
 class ParamConstraint:
@@ -10,7 +11,7 @@ class ParamConstraint:
         Makes a group of constraints.
         :param kwargs: A dictionary of keyword value pairs that create instances of registered constraints to be implemented.
         """
-        self.__constraints = list()
+        self.__constraints:list = list()
         for key, value in kwargs.items():
             constraint_handler = check_constraints(key)
             if constraint_handler is None:

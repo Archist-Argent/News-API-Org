@@ -1,4 +1,4 @@
-from .Constraints import ParamConstraint
+from .Constraint import ParamConstraint
 
 from typing import Literal, Union
 

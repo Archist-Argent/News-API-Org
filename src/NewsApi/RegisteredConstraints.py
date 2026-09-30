@@ -1,24 +1,8 @@
-__constraintAttributes = {}
 
-class ConstraintFail(Exception):
-    def __init__(self):...
 
-def check_constraints(key):
-    return __constraintAttributes.get(key)
+class ConstraintFail(Exception):pass
 
-def register_constraint_handler(name):
-    """
-    Will register a new constraint class within the _constraintAttributes dictionary.
-    :param name: The name of the constraint and what will be searched when you pass in the constraint key and the value
-    being the passed in value for the constraint.
-    """
-    def register_func(func):
-        if __constraintAttributes.get(name) is not None:
-            raise KeyError('Constraint %s is already registered.' % name)
-        __constraintAttributes[name] = func
-    return register_func
 
-@register_constraint_handler("length")
 class LengthLimit:
 
     def __init__(self, len_limit:int):
@@ -35,7 +19,6 @@ class LengthLimit:
             raise ConstraintFail
 
 
-@register_constraint_handler("type")
 class TypeCheck:
     #Update type hinting to better show types.
     def __init__(self, obj_type:type):
@@ -46,7 +29,6 @@ class TypeCheck:
             raise ConstraintFail
 
 
-@register_constraint_handler("int_limit")
 class IntRoof:
 
     def __init__(self, limit:tuple[str,int]):

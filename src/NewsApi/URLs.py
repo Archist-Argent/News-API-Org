@@ -1,15 +1,11 @@
 from .ApiCaller import ApiResponse
 from .ApiKey import ApiKey
 from .HeaderGroups import HeaderGroup
-from .HeaderGroupConsts import HeaderGroups
 from .ApiCaller import call_api
 
 from typing import Union
 
 __all__=["URL"]
-
-EVERYTHING = HeaderGroups.everything.value
-TOP_ARTICLES = HeaderGroups.top.value
 
 class URL:
 
