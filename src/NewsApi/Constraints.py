@@ -42,15 +42,16 @@ class TypeCheck(Constraint[type]):
             raise ConstraintFail
 
 
-class BoundedInt(Constraint[tuple[str, int]]):
+class BoundedInt(Constraint[int]):
 
-    def __init__(self, limit:tuple[str,int]):
-        self.limit = limit
+    __LowerLimit = int
+    __UpperLimit = int
+
+    def __init__(self, lower_limit:__LowerLimit, upper_limit:__UpperLimit):
+        self.__lower_imit = lower_limit
+        self.__upper_limit = upper_limit
 
     @override
-    def validate_value(self, value: tuple[str, int]) -> None:
-        lower, upper = self.limit
-        if isinstance(lower, int) and int_val < lower:
-            raise ConstraintFail
-        if isinstance(upper, int) and int_val > upper:
+    def validate_value(self, value: int) -> None:
+        if self.__lower_imit < value < self.__upper_limit:
             raise ConstraintFail
