@@ -5,9 +5,7 @@ from .ApiCaller import call_api
 
 from typing import Union
 
-__all__=["URL"]
-
-class URL:
+class _URL:
 
     __baseURL = 'https://newsapi.org/v2/'
 
