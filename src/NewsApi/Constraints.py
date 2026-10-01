@@ -30,6 +30,7 @@ class LengthLimit(Constraint[str]):
     def validate_value(self, value:Sized) -> NoReturn | None:
         if len(value) > self.limit:
             raise ConstraintFail
+        return None
 
 
 class TypeCheck(Constraint[type]):
@@ -40,18 +41,21 @@ class TypeCheck(Constraint[type]):
     def validate_value(self, value: type) -> NoReturn | None:
         if not isinstance(value, self.objType):
             raise ConstraintFail
+        return None
 
+from typing import TypeAlias
 
 class BoundedInt(Constraint[int]):
 
-    __LowerLimit = int
-    __UpperLimit = int
+    __LowerLimit:TypeAlias = int
+    __UpperLimit:TypeAlias = int
 
     def __init__(self, lower_limit:__LowerLimit, upper_limit:__UpperLimit):
         self.__lower_imit = lower_limit
         self.__upper_limit = upper_limit
 
     @override
-    def validate_value(self, value: int) -> None:
+    def validate_value(self, value: int) -> NoReturn | None:
         if self.__lower_imit < value < self.__upper_limit:
             raise ConstraintFail
+        return None
