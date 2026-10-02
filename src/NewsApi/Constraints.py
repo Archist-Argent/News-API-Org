@@ -3,7 +3,7 @@ from typing import override, NoReturn, TypeVar, Generic
 from collections.abc import Sized
 from abc import ABC, abstractmethod
 
-__all__ = ["LengthLimit", "TypeCheck", "BoundedInt"]
+__all__ = ["LengthLimit", "BoundedInt"]
 
 class ConstraintFail(Exception):pass
 
@@ -29,17 +29,6 @@ class LengthLimit(Constraint[str]):
     @override
     def validate_value(self, value:Sized) -> NoReturn | None:
         if len(value) > self.limit:
-            raise ConstraintFail
-        return None
-
-
-class TypeCheck(Constraint[type]):
-    def __init__(self, obj_type:type):
-        self.objType:type = obj_type
-
-    @override
-    def validate_value(self, value: type) -> NoReturn | None:
-        if not isinstance(value, self.objType):
             raise ConstraintFail
         return None
 

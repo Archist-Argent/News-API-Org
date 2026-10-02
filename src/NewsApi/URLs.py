@@ -1,9 +1,7 @@
 from urllib import parse
 
-from .ApiCaller import ApiResponse
-from .ApiKey import ApiKey
-from .HeaderGroups import HeaderGroup
-from .ApiCaller import call_api
+from .ApiCaller import ApiResponse, call_api
+from .Params import Param as __Param
 
 class URL:
 
@@ -17,8 +15,8 @@ class URL:
             module to be used in the header group.
             """
             self.__name:str = name
-            self.__params:dict[str,__Param] = {} #A dictionary of the param name and parameter.
-            self.add_params(*params) #Adding initial passed in parameters.
+            self.__params:dict[str,__Param] = {}
+            self.add_params(*params)
     
     @property
     def name(self):
