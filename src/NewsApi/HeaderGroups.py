@@ -1,7 +1,5 @@
 from .Params import Param as __Param
 
-__all__=["HeaderGroup"]
-
 class HeaderGroup:
 
     def __init__(self, name:str, *params:__Param):

@@ -16,3 +16,7 @@ class Param:
     def validate(self, value:Any):
         for constraint in self.__constraints:
             constraint.validate_value(value)
+
+    @property
+    def name(self):
+        return self.__name

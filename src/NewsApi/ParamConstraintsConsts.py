@@ -1,7 +1,7 @@
 from .Params import Param as __Param
 from .Constraints import *
 
-from re import findall
+from re import findall as __findall
 
 __str_type_check = TypeCheck(str)
 __int_type_check = TypeCheck(int)
@@ -21,4 +21,4 @@ EXCLUDE_DOMAINS = __Param("excludeDomains", __list_type_check)
 DOMAINS = __Param("domains", __list_type_check)
 DATE_FROM = __Param("from")
 DATE_TO = __Param("to")
-LANG = __Param("language", *findall('..',"ardeenesfrheitnlnoptrusvudzh"), __str_type_check, __len_limit_two)
+LANG = __Param("language", *__findall('..',"ardeenesfrheitnlnoptrusvudzh"), __str_type_check, __len_limit_two)
