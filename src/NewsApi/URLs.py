@@ -1,31 +1,26 @@
 from urllib import parse
+from typing import TypeVar, Any, TypeVarTuple, Generic, Unpack
 
-from .ApiCaller import ApiResponse, call_api
 from .Params import Param as __Param
 
-class URL:
+_ParamGenericType = TypeVar('_ParamGenericType')
+_ParamType = TypeVarTuple('_ParamType')
+
+class URL[_ParamGenericType]:
 
     __baseURL = 'https://newsapi.org/v2/'
 
-    def __init__(self, name:str, *params:__Param):
+    def __init__(self, *params:Unpack[tuple[__Param[_ParamGenericType], ...]]):
             """
             Instances header group creating a group of parameters to be used for a specific header.
             :param name: The name to be printed out for the header group in url formation.
             :param params: Parameter objects
             module to be used in the header group.
             """
-            self.__name:str = name
-            self.__params:dict[str,__Param] = {}
+            self.__params:dict[str,__Param[Any]] = {}
             self.add_params(*params)
-    
-    @property
-    def name(self):
-        """
-        Returns the name of the header group.
-        """
-        return self.__name
 
-    def add_params(self, *params:__Param):
+    def add_params(self, *params:__Param[_ParamType]):
         """
         Adds in the new parameter values to the params dictionary.
         :param params: An iterable of initialized parameters to be assigned to the header group.
@@ -45,7 +40,7 @@ class URL:
             raise TypeError('"key" must be of type %s' % ApiKey)
         self.__apiKey = key
 
-    def form_url(self, **params):
+    def form_url(self, *params:Unpack[_ParamType]):
         """
         Returns a formatted url to be sent as an HTTP request.
         :param params: Parameter values to be passed into at format time. These will overwrite non set defaults.
