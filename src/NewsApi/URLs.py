@@ -8,6 +8,8 @@ from .Params import Param as __Param
 type _Url = str
 type _ParamArgs = dict[str,__Param[Any]]
 
+#Finish this was class now function
+
 def URL(**params:__Param[Any]) -> Callable[[FunctionType], Callable[..., _Url]]:
     """
     Returns a formatted url to be sent as an HTTP request.
