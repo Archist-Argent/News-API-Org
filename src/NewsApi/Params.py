@@ -3,7 +3,7 @@ from .Constraints import Constraint
 
 __all__ = ["Param"]
 
-class Param [Types]:
+class Param [Types = Any]:
     """
     Represents a parameter that could be used and assigned to a header group.
     """
