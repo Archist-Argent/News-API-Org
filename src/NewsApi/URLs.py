@@ -1,38 +1,26 @@
-from urllib import parse
-from typing import Any, Callable
-from types import FunctionType
-from functools import wraps
+from typing import Any
 
 from .Params import Param as __Param
 
-type _Url = str
-type _ParamArgs = dict[str,__Param[Any]]
+__BASE_URL = r'https://newsapi.org/v2'
 
-#Finish this was class now function
+class Url:
 
-def URL(**params:__Param[Any]) -> Callable[[FunctionType], Callable[..., _Url]]:
-    """
-    Returns a formatted url to be sent as an HTTP request.
-    :param params: Parameter values to be passed into at format time. These will overwrite non set defaults.
-    These values still need to be defined within the header group assigned to the URL.
-    """
-    def url_sig(signature:Callable[...,None]) -> Callable[..., _Url]:
-        wraps(signature)
-        def url_func(**kargs:...) -> _Url:
-            if self.__apiKey is None:
-                raise ValueError('You must define an API key.')
-            self.__header.check_params(**params)
-            url_structure = [self.__header.name]
-            if type(self.__setParams) == set and len(self.__setParams.intersection(set(params.keys()))) != 0:
-                # Checks for any parameters that were set as non-editable.
-                raise KeyError\
-                    (
-                        'The following parameters were set as non-editable: %s' \
-                        % self.__setParams.intersection(set(params.keys()))
-                    )
-            for param in set(self.__paramDefaults.keys()).difference(set(params.keys())):
-                # Updates the parameters with default params that weren't overwritten.
-                params[param] = self.__paramDefaults[param]
-            return self.__baseURL+'/'.join(url_structure)+'?'+'&'.join(['%s=%s' % (param, value) for param, value in params.items()])
-        return url_func
-    return url_sig
+    def __init__(self, header:str, **params:__Param):
+        """
+        Replace kwargs with keywords for params. These keywords will be used to index the parameters for checking later on validation.
+        :param params: A dicitonary of named parameter isntances.
+        :param header: A header to choose what query to run.
+        """
+        self.params = params
+        self.header = header
+
+    def validate(self, **kvals:Any):
+        """
+        Generates URL based on parameter inputs. Should override in child class for type hinting purposes that calls super with all the parameters.
+        """
+        for name, value in kvals.items():
+            if param := self.params.get(name):
+                param.validate(value)
+            else:
+                raise KeyError('Parameter "%s" is not defined in params <%s>' %(name, self.params.keys()))

@@ -11,7 +11,7 @@ __all__ = ["SortBy", "SearchIn", "Exclude", "Domain",
 
 type SortBy = Iterable[Literal["relevancy", "popularity", "publishedAt"]]
 type SearchIn = Iterable[Literal["title", "description", "content"]]
-type Exclude = Iterable[Any]
+type Exclude = Iterable[str]
 type Domain = Iterable[Any]
 type DateFromTo = datetime
 type Lang = Literal["ar","de","en","es","fr","he","it","nl","no","pt","ru","sv","ud","zh"]
