@@ -14,10 +14,10 @@ MetaData = NamedTuple('MetaData',(('totalResults', int),))
 
 
 class ResponseError(Exception):pass
-class _RecordCreationError(Exception):pass
-class _AuthorCreationError(_RecordCreationError):pass
-class _SourceCreationError(_RecordCreationError):pass
-class _ArticleCreationError(_RecordCreationError):pass
+class RecordCreationError(Exception):pass
+class AuthorCreationError(RecordCreationError):pass
+class SourceCreationError(RecordCreationError):pass
+class ArticleCreationError(RecordCreationError):pass
 
 
 class Authors:
@@ -25,6 +25,8 @@ class Authors:
     """
     A class that can instantiate new authors and will keep track of the created authors.
     """
+
+    _AUTHOR_DELIMINATOR = " "
 
     @classmethod
     def add_author(cls, author_name:str) -> Author | None:
@@ -36,12 +38,9 @@ class Authors:
         """
         try:
             if author_name:
-                author_name = Author(*author_name.split(" "))
-            return author_name
-        except TypeError:
-            _LOGGER.log(INFO,"Couldn't create author record: %s",_AuthorCreationError(author_name), exc_info=True)
-        except Exception:
-            _LOGGER.log(WARNING, "Unhandled Exception: %s", _AuthorCreationError(author_name), exc_info=True)
+                return Author(*author_name.split(cls._AUTHOR_DELIMINATOR))
+        except Exception as err:
+            _LOGGER.log(WARNING, "Unhandled Exception: %s" %err, AuthorCreationError(author_name), exc_info=True)
         return None
 
 
